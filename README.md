@@ -44,5 +44,5 @@ An interesting way to find out how your time management is going is by doing the
 
 Thinking about this is important so that you can better understand your own work rhythm.
 
-Reference to the explanation of the pomodoro technique: <https://www.napratica.org.br/pomodoro/>
+_Reference to the explanation of the pomodoro technique: <https://www.napratica.org.br/pomodoro/>_
 
