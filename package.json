@@ -1,0 +1,15 @@
+{
+    "name": "My Pomodoro",
+    "version": "1.0.0",
+    "description": "Aplicação para gerenciamento da técnica pomodoro",
+    "main": "index.html",
+    "keywords": [],
+    "author": "Jorge Fabiano",
+    "scripts": {
+        "tw": "npx tailwindcss -i ./public/assets/styles/tailwind.css -o ./public/assets/styles/dist/build.css --watch"
+    },
+    "devDependencies": {
+        "tailwindcss": "^3.3.3"
+    },
+    "homepage": "https://mypomodoro.com.br"
+}
