@@ -8,9 +8,9 @@ let sessoes = document.getElementById('sessoes')
 let segundos
 
 // Acessa os audios de alertas e colcoca nas variáveis
-var bell = new Audio("./audio/bell.mp3")
-var volta = new Audio("./audio/volta.mp3")
-var final = new Audio("./audio/final.mp3")
+var bell = new Audio("./assets/audio/bell.mp3")
+var volta = new Audio("./assets/audio/volta.mp3")
+var final = new Audio("./assets/audio/final.mp3")
 
 // Acessa a tag audio e os botões de pause e play
 var lofi = document.getElementById('lofi')
@@ -38,13 +38,13 @@ function iniciar() {
 
    // Verificação se os campos de ação, pausa e sessões estão preenchidos
    if (acao.value == 0) {
-      document.getElementById('erro_acao').innerHTML = "Adicione os minutos"
+      document.getElementById('erro_acao').innerHTML = "Informe os minutos"
       acao.focus()
    } else if (pausa.value == 0) {
-      document.getElementById('erro_pausa').innerHTML = "Adicione a pausa"
+      document.getElementById('erro_pausa').innerHTML = "Informe a pausa"
       pausa.focus()
    } else if (sessoes.value == 0) {
-      document.getElementById('erro_sessoes').innerHTML = "Adicione as sessões"
+      document.getElementById('erro_sessoes').innerHTML = "Informe as sessões"
       sessoes.focus()
    } else {
 
@@ -92,8 +92,8 @@ function momentoAcao() {
    title.style.fontSize = '25pt'
    // Muda a grossura do texto para bold
    title.style.fontWeight = 'bold'
-   // Muda a cor do texto para verde (#28a745)
-   title.style.setProperty('color', '#28a745', 'important')
+   // Muda a cor do texto para verde (#ff79c6)
+   title.style.setProperty('color', '#ff79c6', 'important')
 
    // Pega o valor de acao do localStorage, já convertendo para Number e adicionando a variável min
    min = Number(localStorage.getItem('acao'))

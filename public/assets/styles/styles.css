@@ -1,0 +1,76 @@
+/* Zerar as configurações padrões do navegador */
+*{
+    padding: 0;
+    margin: 0;
+ }
+
+ html,body{
+   height: 100%;
+   overflow: auto;
+ }
+
+ .my-bg{
+   background-color: #282a36;
+ }
+
+ .bg-nav{
+   background-color: #bd93f9;
+ }
+
+ .text-nav{
+   color: #44475a;
+ }
+
+ .text-input{
+   color: #ff79c6;
+ }
+
+ label.text-input{
+   font-size: 2rem;
+ }
+ 
+ /* O !important serve para priorizar essa configuração especifica */
+ input{
+    width: 150px !important;
+    height: 150px !important;
+    font-size: 50pt !important;
+    text-align: center !important;
+ }
+ 
+ /* Tirar o botão de mais e menos do input tipo number */
+ input[type="number"]::-webkit-outer-spin-button,
+ input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+ }
+ 
+ input[type="number"] {
+    -moz-appearance: none;
+ }
+ 
+ .time{
+    color: #ffb86c;
+    text-align: center;
+    width: 20rem;
+    height: 20rem;
+    border-radius: 10rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: auto !important;
+ }
+ 
+ h2{
+    font-size: 90pt;
+ }
+ 
+ #timer{
+    display: none !important;
+ }
+
+/* Mobile view */
+@media only screen and (max-width: 360px) {
+   .bg-nav{
+      margin-bottom: 0;
+    }
+}
