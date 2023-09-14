@@ -1,4 +1,6 @@
-# my-pomodoro
+# [My Pomodoro](https://mypomodoro.com.br/).
+ 
+!(https://mypomodoro.com.br/assets/images/print-app.png)
 
 This application aims to help you with time management using the **POMODORO** technique, don't you know what this technique is? Below is a brief explanation of how it works and how it can help you with your day-to-day tasks.
 
@@ -11,8 +13,8 @@ The technique, in fact, was developed in the late 80s by the Italian Francesco C
 The technique is based on the idea that by dividing our workflow into blocks of intense concentration, we can improve brain agility and stimulate our focus. In other words, we improve our time management and become more efficient. Therefore, to put it into practice you will need:
 
 * Timer or stopwatch to count down
-*  A to-do list
-*  Pencil and eraser
+* A to-do list
+* Pencil and eraser
 
 First, you must make a list of tasks to be performed during the day. Then, simply divide your time into 25-minute periods (called “pomodoros”) and work uninterruptedly on your tasks in these periods.
 
