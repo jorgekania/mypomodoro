@@ -221,8 +221,8 @@
 
 	function updateTimer() {
 
-		const workFinished = new Audio("./assets/audio/work-finished.mp3");
-		const restFinished = new Audio("./assets/audio/rest-finished.mp3");
+		const workFinished = new Audio("./assets/audio/work-finished.wav");
+		const restFinished = new Audio("./assets/audio/rest-finished.wav");
 
 		if (!isPaused) {
 			remainingTime--;
