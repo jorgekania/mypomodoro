@@ -25,6 +25,7 @@ body {
   justify-content: center;
   align-items: center;
   height: 100%;
+  flex-wrap: wrap;
 }
 
 /* Global Variables */
@@ -64,6 +65,12 @@ body.rest-mode #vista-bg {
   border: 1px solid rgba(255, 255, 255, 0.64);
 }
 
+.ads{
+  flex-basis: 100%;
+  position: absolute;
+  bottom: 0;
+}
+
 /** 
 * Pomodoro overlay
 */
@@ -90,6 +97,52 @@ body.page-loaded #feh-pomodoro-overlay {
   height: 150px;
 }
 
+/* 
+* Div Help
+*/
+#feh-help {
+  display: none;
+  position: absolute;
+  transition: all 0.3s ease-in-out;
+  opacity: 1;
+  top: 0;
+  left: 0;
+  width: 100%;
+  max-width: 350px;
+  height: 100%;
+  margin: 0 auto;
+  padding: 55px 25px 25px 25px;
+  border-radius: 20px;
+  background: var(--primaryColor);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(7.7px);
+  -webkit-backdrop-filter: blur(7.7px);
+  border: 1px solid rgba(255, 255, 255, 0.64);
+}
+
+.text-help h3{
+  color: #f7ddd7;
+  font-weight: 900;
+  font-size: 1rem;
+  margin-bottom: 20px;
+}
+
+.text-help p{
+  color: #f7ddd7;
+  font-weight: 100;
+  font-size: 0.9rem;
+  line-height: 20px;
+  margin-top: 10px;
+}
+.text-help p a{
+  display: block;
+  color: #ffd000;
+  font-weight: 100;
+  font-size: 0.9rem;
+  line-height: 20px;
+  margin-top: 30px;
+}
+
 /** 
 * Genric button + settings btn
 */
@@ -106,11 +159,26 @@ body.page-loaded #feh-pomodoro-overlay {
   cursor: pointer;
   transition: all 0.3s ease-in-out;
 }
+
 #feh-toggle-settings {
   top: 20px;
-  right: 20px;
+  right: 35px;
   height: 50px;
 }
+
+#feh-toggle-help {
+  top: 20px;
+  right: 0;
+  height: 50px;  
+}
+
+#feh-toggle-help-hover {
+  top: 10px;
+  right: 10px;
+  height: 50px;
+  color: #f7ddd7;
+}
+
 
 /** 
 * Progress area

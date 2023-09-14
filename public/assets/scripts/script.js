@@ -14,10 +14,13 @@
 	const btnCloseSettings = document.getElementById('feh-close-settings');
    const playerButtons = document.getElementById("feh-player-buttons");
    const labelPlayer = document.getElementById("player-label");
-   const playWorking = new Audio("./assets/audio/mountains.mp3");
+   const playWorking = new Audio("./assets/audio/happiness.mp3");
    const playerPlay = document.getElementById("player-play-btn");
    const playerPause = document.getElementById("player-pause-btn");
    const playerStop = document.getElementById("player-stop-btn");
+   const btnOpenHelp = document.getElementById('feh-toggle-help')
+   const btnCloseHelp = document.getElementById('feh-toggle-help-hover')
+   const feeHelp = document.getElementById('feh-help')
 
 	let workDuration = parseInt(workDurationInput.value) * 60;
 	let restDuration = parseInt(restDurationInput.value) * 60;
@@ -37,7 +40,18 @@
 	window.addEventListener("load", () => {
 		fehBody.classList.add('page-loaded');
 	});
-	
+
+
+   /******************************************************************************** 
+	* Div Help
+	********************************************************************************/
+   btnOpenHelp.addEventListener("click", () => {
+      feeHelp.style.display = "block";
+  });
+
+	btnCloseHelp.addEventListener("click", () => {
+      feeHelp.style.display = "none";
+  });
 	
 	/******************************************************************************** 
 	* Toggle settings screen
@@ -207,8 +221,8 @@
 
 	function updateTimer() {
 
-		const workFinished = new Audio("./assets/audio/bell.mp3");
-		const restFinished = new Audio("./assets/audio/final.mp3");
+		const workFinished = new Audio("./assets/audio/work-finished.mp3");
+		const restFinished = new Audio("./assets/audio/rest-finished.mp3");
 
 		if (!isPaused) {
 			remainingTime--;
