@@ -1,76 +1,401 @@
-/* Zerar as configurações padrões do navegador */
-*{
-    padding: 0;
-    margin: 0;
- }
+/**
+* Quick and dirty reset & wrapper set-up
+*/
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+html,
+body {
+  height: 100%;
+  font-family: uniform;
+}
+.wrapper {
+  position: relative;
+  width: 100%;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 15px;
+}
 
- html,body{
-   height: 100%;
-   overflow: auto;
- }
+body {
+  font-family: Arial, sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
 
- .my-bg{
-   background-color: #282a36;
- }
+/* Global Variables */
+:root {
+  --primaryColor: #eb430f;
+  --secondaryColor: #9b3110;
+}
 
- .bg-nav{
-   background-color: #bd93f9;
- }
+#vista-bg {
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  background-image: url(../images/background-landscape-that-brings-tranquility.jpg);
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  transition: all 0.6s ease-in-out;
+}
+body.rest-mode #vista-bg {
+  filter: blur(5px) grayscale(0.6) brightness(0.5);
+}
 
- .text-nav{
-   color: #44475a;
- }
+/** 
+* Pomodoro 
+*/
+#feh-pomodoro {
+  position: relative;
+  width: 100%;
+  max-width: 350px;
+  margin: 0 auto;
+  padding: 55px 25px 25px 25px;
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.29);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(7.7px);
+  -webkit-backdrop-filter: blur(7.7px);
+  border: 1px solid rgba(255, 255, 255, 0.64);
+}
 
- .text-input{
-   color: #ff79c6;
- }
+/** 
+* Pomodoro overlay
+*/
+#feh-pomodoro-overlay {
+  background: #fff;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  left: 0;
+  top: 0;
+  border-radius: 20px;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease-in-out;
+}
+body.page-loaded #feh-pomodoro-overlay {
+  opacity: 0;
+  visibility: hidden;
+}
+#feh-pomodoro-overlay img {
+  width: 150px;
+  height: 150px;
+}
 
- label.text-input{
-   font-size: 2rem;
- }
- 
- /* O !important serve para priorizar essa configuração especifica */
- input{
-    width: 150px !important;
-    height: 150px !important;
-    font-size: 50pt !important;
-    text-align: center !important;
- }
- 
- /* Tirar o botão de mais e menos do input tipo number */
- input[type="number"]::-webkit-outer-spin-button,
- input[type="number"]::-webkit-inner-spin-button {
-    -webkit-appearance: none;
-    margin: 0;
- }
- 
- input[type="number"] {
-    -moz-appearance: none;
- }
- 
- .time{
-    color: #ffb86c;
-    text-align: center;
-    width: 20rem;
-    height: 20rem;
-    border-radius: 10rem;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin: auto !important;
- }
- 
- h2{
-    font-size: 90pt;
- }
- 
- #timer{
-    display: none !important;
- }
+/** 
+* Genric button + settings btn
+*/
+.btn-icon {
+  border-radius: 20px;
+  position: absolute;
+  right: 0;
+  width: 50px;
+  display: flex;
+  font-size: 24px;
+  justify-content: center;
+  color: var(--secondaryColor);
+  padding-top: 10px;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+}
+#feh-toggle-settings {
+  top: 20px;
+  right: 20px;
+  height: 50px;
+}
 
-/* Mobile view */
-@media only screen and (max-width: 360px) {
-   .bg-nav{
-      margin-bottom: 0;
-    }
+/** 
+* Progress area
+*/
+#feh-timer-progress {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 40px;
+}
+.circle-timer {
+  width: 270px;
+  height: 270px;
+}
+.circle-background {
+  stroke: #ffffff;
+  stroke-width: 7;
+  fill: none;
+}
+.circle-progress {
+  stroke: var(--primaryColor);
+  stroke-width: 7;
+  stroke-dasharray: 283;
+  stroke-linecap: round;
+  fill: none;
+  transform-origin: 50% 50%;
+  transform: rotate(-90deg);
+}
+body.rest-mode .circle-progress {
+  stroke: #fd525385;
+}
+body.timer-running .circle-progress {
+  transition: all 1s linear;
+}
+
+#feh-timer-time {
+  fill: var(--primaryColor);
+}
+#feh-timer-pause,
+#feh-timer-rest {
+  opacity: 0;
+  transition: all 0.3s ease-in-out;
+  fill: var(--primaryColor);
+}
+
+/** 
+* Toggle text for pause / rest
+*/
+body.timer-paused:not(.rest-mode) #feh-timer-pause,
+body.rest-mode #feh-timer-rest,
+body.rest-mode.timer-paused #feh-timer-pause {
+  opacity: 1;
+}
+body.rest-mode.timer-paused #feh-timer-rest {
+  opacity: 0;
+}
+
+/**
+* Sessions completed 
+*/
+#feh-timer-sessions {
+  border-radius: 50px;
+  background: #fff;
+  display: flex;
+  color: var(--primaryColor);
+  align-items: center;
+  transition: all 0.3s ease-in-out;
+}
+body.settings-active #feh-timer-sessions {
+  opacity: 0;
+  visibility: hidden;
+}
+#feh-timer-sessions p {
+  padding: 12px;
+}
+p#feh-completed-label {
+  width: 80%;
+  text-align: center;
+}
+p#feh-completed-sessions {
+  font-weight: bold;
+  color: var(--primaryColor);
+  font-size: 20px;
+}
+
+/** 
+	* Timer functions
+	*/
+#feh-timer-functions {
+  position: relative;
+  height: 185px;
+  display: grid;
+  margin-top: 10px;
+}
+
+/** 
+* Buttons
+*/
+#feh-timer-buttons {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: all 0.3s ease-in-out;
+}
+#feh-timer-buttons button {
+  background-color: var(--primaryColor);
+  position: absolute;
+  border: none;
+  border-radius: 100px;
+  cursor: pointer;
+  width: 60px;
+  height: 60px;
+  margin: 0 auto;
+  display: block;
+  font-size: 22px;
+  color: #fff;
+}
+body.settings-active #feh-timer-buttons {
+  opacity: 0;
+  visibility: hidden;
+}
+
+/** 
+* Toggle the display of start / pause buttons
+*/
+body.timer-running #start-btn {
+  opacity: 0;
+  visibility: hidden;
+}
+body.timer-paused #start-btn {
+  opacity: 1;
+  visibility: visible;
+}
+
+/**
+ * Player Buttons
+ */
+ #feh-player-buttons {
+  background-color: #2e0202;
+  border-radius: 100px;
+  width: 100%;
+  padding: 5px 0;
+  position: relative;
+  display: none;
+  justify-content: center;
+  align-items: center;
+  transition: all 0.3s ease-in-out;
+  margin-top: 25px;
+}
+
+#feh-player-buttons  .label-container {
+  flex: 1; /* A label ocupará todo o espaço disponível na linha */
+  text-align: center; /* Alinhe o texto ao centro horizontalmente */
+}
+
+#feh-player-buttons  .button-container {
+  flex: 1; /* Os botões ocuparão todo o espaço disponível na linha */
+  display: flex; /* Para alinhar os botões lado a lado */
+  justify-content: center; /* Alinhe os botões ao centro horizontalmente */
+}
+
+#feh-player-buttons button {
+  background-color: var(--primaryColor);
+  border: none;
+  border-radius: 100px;
+  cursor: pointer;
+  width: 25px;
+  height: 25px;
+  margin: 0 5px; /* Adicione margem entre os botões */
+  font-size: 10px;
+  color: #ffffff;
+}
+
+.player-active{
+  opacity: 0.5;
+}
+
+.player-deactivate{
+  opacity: 1;
+}
+
+body.settings-active #feh-player-buttons {
+  opacity: 0;
+  visibility: hidden;
+}
+
+#feh-player-buttons .label-container label{
+  color: var(--primaryColor);
+  font-weight: 700;
+}
+
+/** 
+* Toggle the display of play / pause / stop buttons player
+*/
+/* Play */
+body.player-running #player-play-btn {
+  opacity: 0;
+  visibility: hidden;
+}
+body.player-paused #player-play-btn {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* Pause */
+body.player-running #player-pause-btn {
+  opacity: 0;
+  visibility: hidden;
+}
+body.player-paused #player-pause-btn {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* Stop */
+body.player-running #player-stop-btn {
+  opacity: 0;
+  visibility: hidden;
+}
+body.player-stopped #player-stop-btn {
+  opacity: 1;
+  visibility: visible;
+}
+
+/** 
+* Settings
+*/
+#feh-timer-settings {
+  transition: all 0.3s ease-in-out;
+  opacity: 0;
+  visibility: hidden;
+}
+body.settings-active #feh-timer-settings {
+  opacity: 1;
+  visibility: visible;
+}
+#feh-close-settings {
+  top: 5px;
+  height: 80px;
+  background: var(--secondaryColor);
+  color: #f7ddd7;
+}
+#feh-close-settings:hover {
+  color: #fff;
+}
+
+#feh-timer-form {
+  border-radius: 20px;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  padding: 20px;
+  background: var(--secondaryColor);
+  z-index: 1;
+}
+.feh-timer-line {
+  display: flex;
+}
+.feh-timer-line:last-child {
+  margin-top: 20px;
+}
+.feh-timer-line * {
+  font-size: 18px;
+}
+.feh-timer-line label {
+  width: 50%;
+  color: #ffffffc7;
+  padding: 10px 0px 10px 0px;
+}
+.feh-timer-line input {
+  background: #fff;
+  color: #5c5c5c;
+  width: 50%;
+  border: 0px none;
+  margin-left: -2px;
+  border-radius: 10px;
+  text-align: center;
+}
+#feh-timer-form input::-webkit-outer-spin-button,
+#feh-timer-form input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+}
+#feh-timer-form input[type="number"] {
+  -moz-appearance: textfield;
 }

@@ -6,7 +6,7 @@
     "keywords": [],
     "author": "Jorge Fabiano",
     "scripts": {
-        "tw": "npx tailwindcss -i ./public/assets/styles/tailwind.css -o ./public/assets/styles/dist/build.css --watch"
+        
     },
     "devDependencies": {
         "tailwindcss": "^3.3.3"

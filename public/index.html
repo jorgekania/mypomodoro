@@ -5,164 +5,83 @@
    <meta charset="UTF-8">
    <meta http-equiv="X-UA-Compatible" content="IE=edge">
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   
+   <!-- Font Awesome -->
+   <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.css">
 
-   <!-- CSS do Bootstrap -->
-   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
-
-   <!-- meu CSS externo -->
+   <!-- My CSS external -->
    <link rel="stylesheet" href="./assets/styles/styles.css">
 
-   <!-- Font Awesome -->
-   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 
    <!-- icone -->
    <link rel="icon" href="./assets/images/my-pomodoro.png" type="image/png">
 
-   <title>My Pomodoro</title>
+   <title>MyPomodoro.com.br</title>
 </head>
 
-<body class="my-bg">
-   <!-- Container -->
+<body class="page-loaded">
+   <div id="vista-bg"></div>
+   <div id="feh-pomodoro">
+		
+	   <div id="feh-pomodoro-overlay">
+			<img src="./assets/images/spinner.gif" alt=""> 
+		</div>
 
-   <div class="container-fluid h-100">
+	   <span class="btn-icon" id="feh-toggle-settings"><i class="fa fa-cog"></i></span>
 
-      <!-- Menu -->
-      <nav class="navbar navbar-expand-lg navbar-light bg-nav">
-         <div class="container-fluid">
-            <a class="navbar-brand text-nav align-items-center" href="index.html">
-               <img src="./assets/images/my-pomodoro.png" alt="Logo" width="48" height="48" class="d-inline-block" >
-               <span class="h3 align-middle">My Pomodoro</span>
-            </a>
-         </div>
+	   <div id="feh-timer-progress">
+			<svg class="circle-timer" viewBox="0 0 100 100">
+				<circle cx="50" cy="50" r="45" class="circle-background"></circle>
+				<circle cx="50" cy="50" r="45" class="circle-progress" style="stroke-dashoffset: 282.743;"></circle>
+				<text id="feh-timer-time" x="50" y="50" text-anchor="middle" dy=".3em" font-size="18">25:00</text>
+				<text id="feh-timer-pause" x="50" y="68" text-anchor="middle" dy=".3em" font-size="7">Pausado</text>
+				<text id="feh-timer-rest" x="50" y="68" text-anchor="middle" dy=".3em" font-size="7">Pausa</text>
+			</svg>
+		</div>
 
-         <div class="ml-auto">
-            <a onclick="pausar()">
-               <i id="pause" class="fa fa-pause text-nav" style="font-size: 25pt; display: none;" aria-hidden="true"></i>
-            </a>
+	   <div id="feh-timer-sessions">
+			<p id="feh-completed-label">Sessões Concluídas: </p>
+			<p id="feh-completed-sessions">0</p>
+		</div>
 
-            <a onclick='executar()'>
-               <i id='play' class="fa fa-play text-nav" style="font-size: 25pt; display: none;" aria-hidden="true"></i>
-            </a>
+	   <div id="feh-timer-functions">        
+		  <div id="feh-timer-settings">
+			   <span class="btn-icon" id="feh-close-settings"><i class="fa fa-times"></i></span>
 
-            <audio id="lofi" src="./assets/audio/lo-fi.mp3" type="audio/mpeg"></audio>
-         </div>
+			   <form id="feh-timer-form">
+				  <p class="feh-timer-line">
+					 <label for="work-duration">Pomodoro:</label>
+					 <input type="number" id="work-duration" value="25" min="1">
+				  </p>
+				  <p class="feh-timer-line">
+					 <label for="rest-duration">Pausa:</label>
+					 <input type="number" id="rest-duration" value="5" min="1">
+				  </p>
+			   </form>
+			</div>
+         
+         <!-- Pomodoro control -->
+		  	<div id="feh-timer-buttons">
+				<button id="pause-btn"><i class="fa fa-pause"></i></button>
+				<button id="start-btn"><i class="fa fa-play"></i></button>
+			</div>
 
-      </nav>
-      <!-- /Menu -->
-
-      <!-- Config -->
-
-      <div class="row d-flex justify-content-center mt-5">
-
-         <div class="col-md-8">
-
-
-            <div id="config" class="row d-flex justify-content-center">
-
-               <div class="col">
-
-                  <!-- Inputs -->
-                  <div class="row d-flex justify-content-center">
-                     <div class="col-md-3 d-flex justify-content-center">
-                        <div class="form-group">
-                           <label class="d-flex justify-content-center text-input font-weight-bold"
-                              for="acao">AÇÃO</label>
-                           <input type="number" class="form-control form-control-lg bg-dark border-0 shadow text-input"
-                              id="acao">
-                           <small class="text-danger" id='erro_acao'></small>
-                        </div>
-                     </div>
-                     <div class="col-md-3 d-flex justify-content-center">
-                        <div class="form-group">
-                           <label class="d-flex justify-content-center text-input font-weight-bold"
-                              for="pausa">PAUSA</label>
-                           <input type="number" class="form-control form-control-lg bg-dark border-0 shadow text-input"
-                              id="pausa">
-                           <small class="text-danger" id='erro_pausa'></small>
-                        </div>
-                     </div>
-                     <div class="col-md-3 d-flex justify-content-center">
-                        <div class="form-group">
-                           <label class="d-flex justify-content-center text-input font-weight-bold"
-                              for="sessoes">SESSÕES</label>
-                           <input type="number" class="form-control form-control-lg bg-dark border-0 shadow text-input"
-                              id="sessoes">
-                           <small class="text-danger" id='erro_sessoes'></small>
-                        </div>
-                     </div>
-                  </div>
-                  <!-- Inputs -->
-
-                  <!-- Botão iniciar -->
-
-                  <div class="row mt-5 mb-5 d-flex justify-content-center">
-                     <div class="col-md-9">
-                        <button onclick="iniciar()" class="bg-nav shadow btn-lg btn-block font-weight-bold">COMEÇAR</button>
-                     </div>
-                  </div>
-
-                  <!-- /Botão iniciar -->
-
-               </div>
-
+         <!-- Player control -->
+         <div id="feh-player-buttons">
+            <div class="label-container">
+              <label for="player" id="player-label">Tocando</label>
             </div>
-
-         </div>
-
-      </div>
-      <!-- /config -->
-
-      <!-- Timer -->
-
-      <div id="timer" class="mt-0 d-flex align-items-center justify-content-center h-100">
-
-         <div class="row mb-3">
-            <div class="col">
-               <h3 id='title' class="text-center"></h3>
+            <div class="button-container">
+              <button id="player-play-btn"><i class="fa fa-play"></i></button>
+              <button id="player-pause-btn"><i class="fa fa-pause"></i></button>
+              <button id="player-stop-btn"><i class="fa fa-stop"></i></button>
             </div>
          </div>
+		</div>
 
-         <!-- Relogio -->
-         <div class="row shadow time">
-            <div class="col-5 p-0 ">
-               <h2 id="minutes_ok"></h2>
-            </div>
-            <div class="col-1 p-0 d-flex justify-content-center">
-               <h2>:</h2>
-            </div>
-            <div class="col-5 pl-0">
-               <h2 id="seconds_ok"></h2>
-            </div>
-         </div>
-         <!-- /Relogio -->
-
-         <div class="row mt-5">
-            <div class="col">
-               <h3 id='title_sessao' class="text-center text-input"></h3>
-            </div>
-         </div>
-
-      </div>
-      <!-- /Timer -->
-
-      <!-- Finalização -->
-      <div id="fim" style="display: none;">
-         <h1 class="text-success text-center">Parabéns! Você finalizou suas tarefas.</h1>
-         <div class="row mt-5 mb-5 d-flex justify-content-center">
-            <div class="col-md-9 d-flex justify-content-center">
-               <a href="./index.html" class="btn btn-danger shadow btn-lg">Inicio</a>
-            </div>
-         </div>
-      </div>
-      <!-- /Finalização -->
+	</div>
 
 
-   </div>
-   <!-- /Container -->
-
-
-
-   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
    <script src="./assets/scripts/script.js"></script>
 </body>
 
