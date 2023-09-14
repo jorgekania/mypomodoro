@@ -1,6 +1,6 @@
-# [My Pomodoro](https://mypomodoro.com.br/).
+# [My Pomodoro](https://mypomodoro.com.br/)
  
-!(https://mypomodoro.com.br/assets/images/print-app.png)
+![My Pomodoro](https://mypomodoro.com.br/assets/images/print-app.png)
 
 This application aims to help you with time management using the **POMODORO** technique, don't you know what this technique is? Below is a brief explanation of how it works and how it can help you with your day-to-day tasks.
 
@@ -46,5 +46,5 @@ An interesting way to find out how your time management is going is by doing the
 
 Thinking about this is important so that you can better understand your own work rhythm.
 
-_Reference to the explanation of the pomodoro technique: <https://www.napratica.org.br/pomodoro/>_
+_Reference to the explanation of the pomodoro technique: <https://aprendaecrie.com/post/tecnica-pomodoro-como-esta-abordagem-pode-transformar-sua-produtividade-diaria>_
 
