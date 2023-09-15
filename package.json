@@ -5,11 +5,12 @@
     "main": "index.html",
     "keywords": [],
     "author": "Jorge Fabiano",
-    "scripts": {
-        
-    },
+    "scripts": {},
     "devDependencies": {
         "tailwindcss": "^3.3.3"
     },
-    "homepage": "https://mypomodoro.com.br"
+    "homepage": "https://mypomodoro.com.br",
+    "dependencies": {
+        "fs": "^0.0.1-security"
+    }
 }
