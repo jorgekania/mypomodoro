@@ -119,6 +119,8 @@ body.page-loaded #feh-pomodoro-overlay {
 
 .text-help {
   overflow: auto;
+  height: 100%;
+  padding: 0 5px 0 0;
 }
 
 .text-help h3{
@@ -133,7 +135,7 @@ body.page-loaded #feh-pomodoro-overlay {
   font-weight: 100;
   font-size: 0.9rem;
   line-height: 20px;
-  margin-top: 10px;
+  margin-top: 20px;
 }
 .text-help p a{
   display: block;
