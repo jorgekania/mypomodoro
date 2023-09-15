@@ -38,7 +38,7 @@
 		"energy.mp3",
 		"punky.mp3",
         "happiness.mp3",
-		"memories.mp3",
+		"memories.mp3"
     ];
 
 	let currentAudioIndex = 0;
@@ -189,13 +189,13 @@
 
 	function decreaseVolume() {
         if (remainingTime === 1) {
-            playWorking.volume = 0.1;
+            currentAudio.volume = 0.3;
         }
     }
 
-    // Restore playWorking music volume
+    // Restore currentAudio music volume
     function restoreVolume() {
-        playWorking.volume = 1;
+        currentAudio.volume = 1;
     }
 
 	 // Calculate the duration of the next sound
