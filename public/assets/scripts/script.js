@@ -94,48 +94,51 @@
     pauseBtn.addEventListener("click", handlePauseButtonClick);
 
     // Music Player button is clicked
-    function startPlayer() {
-        labelPlayer.innerText = "Tocando";
-        playWorking.play();
-        playerPlay.disabled = true;
-        playerPlay.classList.add('player-active');
-        playerPlay.classList.remove('player-deactivate');
-        playerPause.disabled = false;
-        playerPause.classList.remove('player-active');
-        playerPause.classList.add('player-deactivate');
-        playerStop.disabled = false;
-        playerStop.classList.remove('player-active');
-        playerStop.classList.add('player-deactivate');
-    }
+	const playWorkingFunctions = {
+		playing: () => playWorking.play(),
+		paused: () => playWorking.pause()
+	};
 
-    function pausePlayer() {
-        labelPlayer.innerText = "Pausado";
-        playWorking.pause();
-        playerPlay.disabled = false;
-        playerPlay.classList.remove('player-active');
-        playerPlay.classList.add('player-deactivate');
-        playerPause.disabled = true;
-        playerPause.classList.add('player-active');
-        playerPause.classList.remove('player-deactivate');
-        playerStop.disabled = false;
-        playerStop.classList.remove('player-active');
-        playerStop.classList.add('player-deactivate');
-    }
-
-    function stopPlayer() {
-        labelPlayer.innerText = "Parado";
-        playWorking.pause();
-        playWorking.currentTime = 0;
-        playerPlay.disabled = false;
-        playerPlay.classList.add('player-deactivate');
-        playerPlay.classList.remove('player-active');
-        playerPause.disabled = false;
-        playerPause.classList.add('player-deactivate');
-        playerPause.classList.remove('player-active');
-        playerStop.disabled = true;
-        playerStop.classList.add('player-active');
-        playerStop.classList.remove('player-deactivate');
-    }
+    function updatePlayerState(state) {
+		const states = {
+			playing: "Tocando",
+			paused: "Pausado",
+			stopped: "Parado"
+		};
+	
+		labelPlayer.innerText = states[state];
+		
+		if (state === "stopped") {
+			playWorking.pause();
+			playWorking.currentTime = 0;
+		} else {
+			playWorkingFunctions[state]();
+		}
+	
+		playerPlay.disabled = state === "playing";
+		playerPlay.classList.toggle('player-active', state === "playing");
+		playerPlay.classList.toggle('player-deactivate', state !== "playing");
+	
+		playerPause.disabled = state === "paused";
+		playerPause.classList.toggle('player-active', state === "paused");
+		playerPause.classList.toggle('player-deactivate', state !== "paused");
+	
+		playerStop.disabled = state === "stopped";
+		playerStop.classList.toggle('player-active', state === "stopped");
+		playerStop.classList.toggle('player-deactivate', state !== "stopped");
+	}
+	
+	function startPlayer() {
+		updatePlayerState("playing");
+	}
+	
+	function pausePlayer() {
+		updatePlayerState("paused");
+	}
+	
+	function stopPlayer() {
+		updatePlayerState("stopped");
+	}
 
     playerPlay.addEventListener("click", startPlayer);
     playerPause.addEventListener("click", pausePlayer);
@@ -152,8 +155,29 @@
     workDurationInput.addEventListener("change", updateDurations);
     restDurationInput.addEventListener("change", updateDurations);
 
+	// Lowers the volume to highlight alert sounds
+	let nextSoundDuration = 0;
+
+	function decreaseVolume() {
+        if (remainingTime === 1) {
+            playWorking.volume = 0.1;
+        }
+    }
+
+    // Restore playWorking music volume
+    function restoreVolume() {
+        playWorking.volume = 1;
+    }
+
+	 // Calculate the duration of the next sound
+	 function calculateNextSoundDuration() {
+        const nextSound = isWorking ? workFinished : restFinished;
+        nextSoundDuration = (nextSound.duration + 1) * 1000;
+    }
+	
+
     // Timer
-    function updateTimer() {
+    function updateTimer() {	
         if (!isPaused) {
             remainingTime--;
 
@@ -163,6 +187,7 @@
 
             document.title = timerTime.textContent = formatTime(remainingTime);
             updateProgress();
+			decreaseVolume();
         }
     }
 
@@ -177,15 +202,18 @@
             completedSessionsElement.textContent = completedSessions;
         } else {
             fehBody.classList.remove('rest-mode');
-            fehBody.classList.remove('timer-running');
-            stopPlayer();
+            fehBody.classList.remove('timer-running');  
+			nextSoundDuration = 0;          
         }
+
+		calculateNextSoundDuration();
 
         const playAlarm = isWorking ? restFinished : workFinished;
         playAlarm.play();
 
         isPaused = true;
         fehBody.classList.remove('timer-work-active');
+		setTimeout(restoreVolume, nextSoundDuration); 
     }
 
     // Update circle progress
