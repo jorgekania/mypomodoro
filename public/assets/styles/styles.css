@@ -113,7 +113,7 @@ body.page-loaded #feh-pomodoro-overlay {
   margin: 0 auto;
   padding: 55px 25px 25px 25px;
   border-radius: 20px;
-  background: var(--primaryColor);
+  background: #2e0202;
   box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
   backdrop-filter: blur(7.7px);
   -webkit-backdrop-filter: blur(7.7px);
@@ -121,7 +121,7 @@ body.page-loaded #feh-pomodoro-overlay {
 }
 
 .text-help h3{
-  color: #f7ddd7;
+  color: #ffff;
   font-weight: 900;
   font-size: 1rem;
   margin-bottom: 20px;
